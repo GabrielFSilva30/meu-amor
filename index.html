@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Para Mary 💘</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #fff0f5;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .envelope {
+      width: 150px;
+      height: 100px;
+      background: #c94f7c;
+      position: relative;
+      margin: 0 auto;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+    }
+
+    .envelope::before, .envelope::after {
+      content: '';
+      position: absolute;
+      border: 75px solid transparent;
+      top: -75px;
+      left: 0;
+    }
+
+    .envelope::before {
+      border-bottom-color: #c94f7c;
+    }
+
+    .envelope::after {
+      top: auto;
+      bottom: -75px;
+      border-top-color: #c94f7c;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .carta {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      margin-top: 60px;
+      min-height: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 48px;
+      color: #c94f7c;
+      margin-bottom: 20px;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-top: 16px;
+      color: #4d2c2c;
+    }
+
+    .assinatura {
+      margin-top: 40px;
+      text-align: right;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 24px;
+      color: #b33c6c;
+    }
+
+    a {
+      color: #c94f7c;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 29.6">\
+<path fill="%23e63946" d="M23.6,0C21.3,0,19.1,1.4,18,3.6C16.9,1.4,14.7,0,12.4,0\
+C7.1,0,2.9,4.3,2.9,9.6c0,4.9,3.7,8.9,9.2,14.1c2.8,2.5,5.8,4.8,6.3,5.3\
+c0.5-0.5,3.5-2.7,6.3-5.3c5.5-5.2,9.2-9.2,9.2-14.1C29.3,4.3,25,0,19.7,0z"/>\
+</svg>') no-repeat center;
+      background-size: contain;
+      opacity: 0.8;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(0.8); opacity: 0.8; }
+      to { transform: translateY(-200px) scale(1); opacity: 0; }
+    }
+
+    .tap-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: riseFade 1.2s ease-out forwards;
+    }
+
+    @keyframes riseFade {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-60px); opacity: 0; }
+    }
+
+    /* Botões musicais */
+    #btn-music, #btn-voltar {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #c94f7c;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+      z-index: 10;
+      user-select: none;
+    }
+
+    #btn-music:hover, #btn-voltar:hover {
+      background: #b33c6c;
+    }
+
+    #btn-voltar {
+      right: 140px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Música de fundo romântica -->
+  <audio id="music" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2023/04/07/audio_c81ab5bc62.mp3?filename=romantic-piano-6953.mp3" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <!-- Efeito sonoro fofo para toque -->
+  <audio id="heart-sound" preload="auto">
+    <source src="https://freesound.org/data/previews/341/341695_6243120-lq.mp3" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <div class="center" id="start-screen">
+    <div class="envelope" onclick="abrirCarta()" aria-label="Abrir carta" role="button" tabindex="0"></div>
+    <p style="margin-top: 20px; font-size: 20px; color: #c94f7c;">Toque na carta para abrir 💌</p>
+  </div>
+
+  <div class="carta hidden" id="carta" tabindex="0" aria-live="polite">
+    <h1>Para você, Mary 💘</h1>
+
+    <p><strong>Mary, eu desejo essa música a nós, porque penso em você toda vez que escuto ela.</strong></p>
+    <p><a href="https://youtu.be/WmEHXzcYMcc?si=17vgHXeQdVN3ZFgq" target="_blank" rel="noopener noreferrer">Clique aqui para ouvir a nossa música</a></p>
+
+    <p>Oi, Mary.</p>
+
+    <p>É difícil colocar em palavras tudo o que você tem me feito sentir. Mas eu precisava tentar, porque você merece saber.</p>
+
+    <p>Desde o dia em que nos conhecemos, algo em mim mudou. Mesmo com as idas e vindas, teve algo em você que me fez querer ficar. E desde então, eu venho sentindo algo que achei que não ia sentir de novo.</p>
+
+    <p>Você trouxe luz pra minha vida. Me fez sorrir diferente. Me fez acreditar de novo no amor, no cuidado, no carinho verdadeiro. Eu olho pra você e vejo paz, vejo força, vejo alguém que eu quero muito cuidar, alguém que eu quero ter por perto.</p>
+
+    <p>Não somos namorados ainda, eu sei. Mas eu queria te dizer, nesse Dia dos Namorados, que eu já escolhi você. Que eu quero te dar 200% de mim. Eu tô aqui de corpo e alma, inteiro por você. Quero estar contigo em cada fase, nos dias bons e nos ruins. Quero te apoiar, ser teu porto seguro, teu abrigo.</p>
+
+    <p>Eu tô disposto a lutar por você, a mostrar todos os dias o melhor de mim. Porque você merece o melhor. E eu quero que saiba: vou te escolher hoje, amanhã, e todos os dias. Independente de qualquer coisa.</p>
+
+    <p>Mary, você me fez sentir de novo. Me fez viver de novo. E eu só quero viver isso com você, sem pressa, no nosso tempo, mas com verdade. Com tudo que há de bom em mim, eu quero viver essa história com você.</p>
+
+    <p>Feliz Dia dos Namorados, mesmo que ainda não sejamos oficiais. No meu coração, você já é tudo.</p>
+
+    <div class="assinatura">
+      Com todo o meu carinho,<br />
+      Biel 💙
+    </div>
+  </div>
+
+  <button id="btn-music" aria-label="Pausar música">⏸️</button>
+  <button id="btn-voltar" aria-label="Fechar carta">🔙</button>
+
+  <script>
+    const startScreen = document.getElementById('start-screen');
+    const carta = document.getElementById('carta');
+    const music = document.getElementById('music');
+    const heartSound = document.getElementById('heart-sound');
+    const btnMusic = document.getElementById('btn-music');
+    const btnVoltar = document.getElementById('btn-voltar');
+
+    // Estado música
+    let musicPlaying = false;
+
+    function abrirCarta() {
+      startScreen.style.display = 'none';
+      carta.classList.remove('hidden');
+      btnVoltar.style.display = 'inline-block';
+      tocarMusica();
+    }
+
+    function fecharCarta() {
+      carta.classList.add('hidden');
+      startScreen.style.display = 'block';
+      btnVoltar.style.display = 'none';
+      pausarMusica();
+    }
+
+    function tocarMusica() {
+      music.play().catch(() => {}); // evitar erro se autoplay bloqueado
+      musicPlaying = true;
+      btnMusic.textContent = '⏸️';
+      btnMusic.setAttribute('aria-label', 'Pausar música');
+    }
+
+    function pausarMusica() {
+      music.pause();
+      musicPlaying = false;
+      btnMusic.textContent = '▶️';
+      btnMusic.setAttribute('aria-label', 'Tocar música');
+    }
+
+    btnMusic.addEventListener('click', () => {
+      if (musicPlaying) {
+        pausarMusica();
+      } else {
+        tocarMusica();
+      }
+    });
+
+    btnVoltar.addEventListener('click', fecharCarta);
+
+    // Corações flutuantes constantes
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      const size = 20 + Math.random() * 30;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+    setInterval(createFloatingHeart, 600);
+
+    // Corações interativos ao toque com som fofo
+    function createTouchHearts(x, y) {
+      heartSound.currentTime = 0;
+      heartSound.play().catch(() => {});
+      for (let i = 0; i < 5; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'tap-heart';
+        heart.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="red" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+        heart.style.left = x - 10 + Math.random() * 40 - 20 + 'px';
+        heart.style.top = y - 10 + Math.random() * 40 - 20 + 'px';
+        heart.style.fontSize = 24 + Math.random() * 10 + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1200);
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      createTouchHearts(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('touchstart', (e) => {
+      const touch = e.touches[0];
+      createTouchHearts(touch.clientX, touch.clientY);
+    });
+  </script>
+</body>
+</html>
